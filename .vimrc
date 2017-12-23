@@ -6,8 +6,9 @@ color dracula
 
 set fileformat=unix
 set guicursor+=a:blinkon0
-set guifont=Consolas:h10
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
 set guioptions-=L
+set guioptions-=m
 set guioptions-=r
 set guioptions-=T
 set guioptions+=a
@@ -34,6 +35,11 @@ let NERDTreeChDirMode=2
 let NERDTreeMinimalUI=1
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
-let NERDTreeWinSize=40
+let NERDTreeWinSize=35
+
+let g:airline_powerline_fonts=1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 
 autocmd BufWritePre * %s/\s\+$//e
+
