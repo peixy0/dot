@@ -1,5 +1,6 @@
 (package-initialize)
 (load-theme 'dracula t)
+(powerline-default-theme)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun kill-all-buffers ()
@@ -35,16 +36,15 @@
  '(blink-cursor-mode nil)
  '(c-default-style "default")
  '(column-number-mode t)
- '(company-auto-complete nil)
- '(company-idle-delay 0.2)
  '(current-language-environment "UTF-8")
  '(custom-theme-directory "~/.emacs.d/themes")
  '(default-frame-alist (quote ((fullscreen . maximized))))
  '(electric-pair-mode t)
- '(global-company-mode t)
  '(global-linum-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(linum-relative-current-symbol ">")
+ '(linum-relative-global-mode t)
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(mode-line-in-non-selected-windows nil)
@@ -59,11 +59,11 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/"))))
- '(package-selected-packages (quote (neotree dracula-theme)))
+ '(package-selected-packages (quote (powerline linum-relative neotree dracula-theme)))
+ '(powerline-default-separator nil)
  '(ring-bell-function (quote ignore))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
- '(show-trailing-whitespace t)
  '(tab-width 4)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -71,4 +71,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Noto Mono" :foundry "GOOG" :slant normal :weight normal :height 110 :width normal)))))
+ '(default ((t (:family "Noto Sans Mono" :foundry "GOOG" :slant normal :weight normal :height 110 :width normal)))))
