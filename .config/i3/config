@@ -37,7 +37,7 @@ for_window [window_role="task_dialog"] floating enable
 bindsym $mod+Return exec i3-sensible-terminal
 
 # start emacs
-bindsym $mod+e exec emacs
+bindsym $mod+e exec i3-sensible-terminal -e vim
 
 # kill focused window
 bindsym $mod+q kill
