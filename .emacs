@@ -1,6 +1,5 @@
 (package-initialize)
 (load-theme 'dracula t)
-(powerline-default-theme)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun kill-all-buffers ()
@@ -26,6 +25,11 @@
 
 (global-set-key [f7] 'neotree-toggle)
 
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(global-set-key (kbd "C-/") 'undo-tree-undo)
+(global-set-key (kbd "C-?") 'undo-tree-redo)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,9 +42,9 @@
  '(column-number-mode t)
  '(current-language-environment "UTF-8")
  '(custom-theme-directory "~/.emacs.d/themes")
- '(default-frame-alist (quote ((fullscreen . maximized))))
  '(electric-pair-mode t)
  '(global-linum-mode t)
+ '(global-undo-tree-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(linum-relative-current-symbol ">")
@@ -59,7 +63,9 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/"))))
- '(package-selected-packages (quote (powerline linum-relative neotree dracula-theme)))
+ '(package-selected-packages
+   (quote
+    (undo-tree expand-region linum-relative neotree dracula-theme)))
  '(powerline-default-separator nil)
  '(ring-bell-function (quote ignore))
  '(scroll-bar-mode nil)
@@ -71,4 +77,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Noto Sans Mono" :foundry "GOOG" :slant normal :weight normal :height 110 :width normal)))))
+ '(default ((t (:family "Inconsolata" :slant normal :weight normal :height 130 :width normal)))))
