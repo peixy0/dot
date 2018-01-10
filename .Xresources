@@ -2,8 +2,9 @@ Xft.dpi: 120
 Xft.hinting: 1
 Xft.antialias: 1
 
+*.termName: xterm-256color
 *.vt100.faceName: Hack:size=11
-*.vt100.faceNameDoublesize: Noto Sans Mono CJK SC, Noto Sans Mono CJK JP, Noto Sans Mono CJK KR
+*.vt100.faceNameDoublesize: Noto Sans Mono CJK SC
 
 ! Dracula Xresources palette
 *.vt100.foreground: #F8F8F2
