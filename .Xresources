@@ -1,6 +1,8 @@
 Xft.dpi: 120
+Xft.hinting: 1
+Xft.antialias: 1
 
-*.vt100.faceName: Inconsolata:size=13:antialias=true
+*.vt100.faceName: Hack:size=11
 *.vt100.faceNameDoublesize: Noto Sans Mono CJK SC, Noto Sans Mono CJK JP, Noto Sans Mono CJK KR
 
 ! Dracula Xresources palette
