@@ -37,7 +37,7 @@ for_window [window_role="task_dialog"] floating enable
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # start editor
-bindsym $mod+e exec --no-startup-id i3-sensible-terminal -e vim
+bindsym $mod+e exec --no-startup-id gvim
 
 # kill focused window
 bindsym $mod+q kill
