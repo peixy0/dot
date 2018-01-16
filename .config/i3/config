@@ -33,6 +33,8 @@ floating_modifier $mod
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
+for_window [class="^.*"] border pixel 3
+
 # start a terminal
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
@@ -174,7 +176,5 @@ bar {
 }
 
 bindsym $mod+b bar mode toggle
-
-new_window pixel 3
 
 exec --no-startup-id sh ~/.fehbg
