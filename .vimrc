@@ -63,5 +63,4 @@ let g:ctrlp_custom_ignore = {
             \ 'file': '\v\.(o|a|pyc)$'
             \ }
 
-let g:better_whitespace_filetypes_blacklist=['markdown']
 autocmd BufEnter * EnableStripWhitespaceOnSave
