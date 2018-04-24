@@ -1,5 +1,16 @@
-set nocompatible
-execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+
+Plug 'dracula/vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+
+call plug#end()
+
+
 syntax on
 filetype plugin indent on
 color dracula
@@ -16,14 +27,14 @@ set shortmess=a
 set showcmd
 
 set guicursor+=a:blinkon0
-set guifont=Hack\ 11
+set guifont=Hack\ 12
 set guioptions+=a
 set guioptions-=L
 set guioptions-=m
 set guioptions-=r
 set guioptions-=T
 
-set smartindent
+set autoindent
 set shiftwidth=4
 set textwidth=0
 set tabstop=4
@@ -48,6 +59,7 @@ let NERDTreeMinimalUI=1
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 let NERDTreeWinSize=35
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
