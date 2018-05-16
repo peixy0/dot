@@ -1,19 +1,22 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'dracula/vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
+Plug 'dracula/vim'
+Plug 'majutsushi/tagbar'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
 
 syntax on
 filetype plugin indent on
-color dracula
+colorscheme dracula
+set background=dark
 
 set noswapfile
 set nobackup
@@ -53,24 +56,27 @@ map <F11> :set lines=999 columns=999<CR>
 map <S-ScrollWheelUp> 3zh
 map <S-ScrollWheelDown> 3zl
 
-map <F7> :NERDTreeToggle<CR>
-let NERDTreeChDirMode=2
-let NERDTreeMinimalUI=1
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-let NERDTreeWinSize=35
-let NERDTreeIgnore=['\.pyc$', '\~$']
+let g:tagbar_vertical=20
+
+map <F7> :NERDTreeToggle \| TagbarToggle<CR>
+let g:NERDTreeWinPos="right"
+let g:NERDTreeChDirMode=2
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeShowHidden=1
+let g:NERDTreeWinSize=60
+let g:NERDTreeIgnore=['\.pyc$', '\~$']
 
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:20'
-let g:ctrlp_max_history = 0
-let g:ctrlp_regexp = 1
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_match_window='bottom,order:ttb,min:1,max:10,results:20'
+let g:ctrlp_max_history=0
+let g:ctrlp_regexp=1
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_custom_ignore={
             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
             \ 'file': '\v\.(o|a|pyc)$'
             \ }
