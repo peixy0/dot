@@ -4,8 +4,10 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'majutsushi/tagbar'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -16,7 +18,6 @@ call plug#end()
 syntax on
 filetype plugin indent on
 colorscheme dracula
-set background=dark
 
 set noswapfile
 set nobackup
@@ -26,16 +27,17 @@ set encoding=utf-8
 set fileformat=unix
 set clipboard=unnamedplus
 set mouse=a
-set shortmess=a
+set shortmess=at
 set showcmd
 
 set guicursor+=a:blinkon0
-set guifont=Hack\ 12
+set guifont=Inconsolata\-g\ for\ Powerline\ 11
 set guioptions+=a
 set guioptions-=L
 set guioptions-=m
 set guioptions-=r
 set guioptions-=T
+set guioptions-=e
 
 set autoindent
 set shiftwidth=4
@@ -51,14 +53,16 @@ set relativenumber
 set nowrap
 set sidescroll=1
 
-map ; :
-map <F11> :set lines=999 columns=999<CR>
-map <S-ScrollWheelUp> 3zh
-map <S-ScrollWheelDown> 3zl
+nnoremap <S-ScrollWheelUp> 3zh
+nnoremap <S-ScrollWheelDown> 3zl
+nnoremap ; :
+nnoremap <Space> :noh<CR>
+nnoremap <F11> :set lines=999 columns=999<CR>
 
 let g:tagbar_vertical=20
+let g:tagbar_sort=0
 
-map <F7> :NERDTreeToggle \| TagbarToggle<CR>
+nnoremap <F7> :NERDTreeToggle \| TagbarToggle<CR>
 let g:NERDTreeWinPos="right"
 let g:NERDTreeChDirMode=2
 let g:NERDTreeMinimalUI=1
