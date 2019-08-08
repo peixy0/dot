@@ -35,9 +35,10 @@ conky.config = {
 
 conky.text = [[
 [
-    {"full_text": "  $cpu% "},
-    {"full_text": "    $memperc% ($mem) "},
-    {"full_text": "    ${upspeed enp0s3}   ${downspeed enp0s3}  "},
-    {"full_text": "    $time"}
+    {"full_text": "${distribution} ${kernel} "},
+    {"full_text": " CPU $cpu% "},
+    {"full_text": " RAM $memperc% ($mem) "},
+    {"full_text": " ${upspeed enp0s3}↑  ${downspeed enp0s3}↓ "},
+    {"full_text": " $time"}
 ],
 ]];
