@@ -1,34 +1,44 @@
-(package-initialize)
-(load-theme 'dracula t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defun kill-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
+(setq font-use-system-font t)
 
-(global-set-key (read-kbd-macro "C-x C-b") 'bs-show)
+(setq url-proxy-services
+	  '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+		("http" . "10.144.1.10:8080")
+		("https" . "10.144.1.10:8080")))
 
-(defconst default-c-style '((c-basic-offset . 4)
-                            (c-comment-only-line-offset . 0)
-                            (c-offsets-alist
-                             (inexpr-class . 0)
-                             (inline-open . 0)
-                             (innamespace . 0)
-                             (knr-argdecl-intro . +)
-                             (label . 0)
-                             (statement-block-intro . +)
-                             (statement-cont . +)
-                             (substatement-label . 0)
-                             (substatement-open . 0))))
+(add-to-list 'load-path "~/third_party/cc-mode/")
+(add-to-list 'load-path "~/third_party/google-c-style/")
 
-(c-add-style "default" default-c-style)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
 
+(load-theme 'dracula t)
+
+(require 'evil)
+(evil-mode t)
+
+(require 'evil-magit)
+
+(require 'neotree)
 (global-set-key [f7] 'neotree-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "g") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
+(evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
+(evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
+(evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
-(global-set-key (kbd "C-=") 'er/expand-region)
+(require 'projectile)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-(global-set-key (kbd "C-/") 'undo-tree-undo)
-(global-set-key (kbd "C-?") 'undo-tree-redo)
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -38,43 +48,36 @@
  '(auto-save-default nil)
  '(before-save-hook (quote (delete-trailing-whitespace)))
  '(blink-cursor-mode nil)
- '(c-default-style "default")
- '(column-number-mode t)
+ '(counsel-mode t)
  '(current-language-environment "UTF-8")
- '(custom-theme-directory "~/.emacs.d/themes")
- '(electric-pair-mode t)
- '(global-linum-mode t)
- '(global-undo-tree-mode t)
+ '(custom-enabled-themes (quote (dracula)))
+ '(display-line-numbers (quote relative))
+ '(global-auto-revert-mode t)
+ '(horizontal-scroll-bar-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(linum-relative-current-symbol ">")
- '(linum-relative-global-mode t)
  '(make-backup-files nil)
- '(menu-bar-mode nil)
- '(mode-line-in-non-selected-windows nil)
  '(mouse-wheel-progressive-speed nil)
- '(mouse-wheel-scroll-amount (quote (5 ((shift) . 1) ((control)))))
- '(neo-create-file-auto-open t)
- '(neo-show-hidden-files t)
+ '(neo-hide-cursor t)
  '(neo-theme (quote nerd))
  '(neo-window-fixed-size nil)
- '(neo-window-width 35)
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
+ '(neo-window-position (quote right))
+ '(neo-window-width 50)
+ '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (undo-tree expand-region linum-relative neotree dracula-theme)))
- '(powerline-default-separator nil)
- '(ring-bell-function (quote ignore))
- '(scroll-bar-mode nil)
+    (evil-magit ag swiper projectile nyan-mode neotree evil dracula-theme)))
+ '(projectile-completion-system (quote ivy))
+ '(projectile-mode t nil (projectile))
+ '(projectile-switch-project-action (quote neotree-projectile-action))
  '(show-paren-mode t)
  '(tab-width 4)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(truncate-lines t)
+ '(vc-handled-backends (quote (git))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :slant normal :weight normal :height 130 :width normal)))))
+ '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 90 :width normal)))))
