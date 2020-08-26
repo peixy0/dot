@@ -7,8 +7,8 @@
 		("http" . "10.144.1.10:8080")
 		("https" . "10.144.1.10:8080")))
 
-(add-to-list 'load-path "~/third_party/cc-mode/")
-(add-to-list 'load-path "~/third_party/google-c-style/")
+(add-to-list 'load-path "~/.emacs.d/elisp/cc-mode/")
+(add-to-list 'load-path "~/.emacs.d/elisp/google-c-style/")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -21,6 +21,43 @@
 
 (require 'evil-magit)
 
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> j") 'counsel-set-variable)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)
+
+(global-set-key (kbd "C-c c") 'counsel-compile)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c L") 'counsel-git-log)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-c m") 'counsel-linux-app)
+(global-set-key (kbd "C-c n") 'counsel-fzf)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-c J") 'counsel-file-jump)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+(global-set-key (kbd "C-c w") 'counsel-wmctrl)
+
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-c b") 'counsel-bookmark)
+(global-set-key (kbd "C-c d") 'counsel-descbinds)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c o") 'counsel-outline)
+(global-set-key (kbd "C-c t") 'counsel-load-theme)
+(global-set-key (kbd "C-c F") 'counsel-org-file)
+
 (require 'neotree)
 (global-set-key [f7] 'neotree-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
@@ -32,9 +69,6 @@
 (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
 (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
-
-(require 'projectile)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
@@ -66,10 +100,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (evil-magit ag swiper projectile nyan-mode neotree evil dracula-theme)))
- '(projectile-completion-system (quote ivy))
- '(projectile-mode t nil (projectile))
- '(projectile-switch-project-action (quote neotree-projectile-action))
+    (counsel lsp-latex lsp-mode evil-magit swiper nyan-mode neotree evil dracula-theme)))
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
