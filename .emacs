@@ -19,8 +19,6 @@
 (require 'evil)
 (evil-mode t)
 
-(require 'evil-magit)
-
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 
@@ -87,6 +85,7 @@
  '(custom-enabled-themes (quote (dracula)))
  '(display-line-numbers (quote relative))
  '(global-auto-revert-mode t)
+ '(global-hl-line-mode t)
  '(horizontal-scroll-bar-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -96,12 +95,14 @@
  '(neo-theme (quote nerd))
  '(neo-window-fixed-size nil)
  '(neo-window-position (quote right))
- '(neo-window-width 50)
+ '(neo-window-width 60)
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (counsel lsp-latex lsp-mode evil-magit swiper nyan-mode neotree evil dracula-theme)))
+    (nyan-mode neotree magit evil dracula-theme counsel)))
  '(show-paren-mode t)
+ '(split-height-threshold 0)
+ '(split-width-threshold nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(truncate-lines t)
@@ -111,4 +112,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 90 :width normal)))))
+ '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 78 :width normal)))))
