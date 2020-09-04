@@ -9,9 +9,13 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/cc-mode/")
 (add-to-list 'load-path "~/.emacs.d/elisp/google-c-style/")
+(add-to-list 'load-path "~/.emacs.d/elisp/ttcn-el/")
+
+(add-hook 'focus-out-hook 'save-buffer)
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 (load-theme 'dracula t)
@@ -68,9 +72,18 @@
 (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
+(require 'magit)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch)
+(global-set-key (kbd "C-c M-g") 'magit-file-dispatch)
+
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+(require 'ttcn3)
+(add-to-list 'auto-mode-alist '("\\.ttcn3\\'" . ttcn-3-mode))
+
+(add-hook 'c++-mode-hook #'lsp-deferred)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -84,7 +97,9 @@
  '(current-language-environment "UTF-8")
  '(custom-enabled-themes (quote (dracula)))
  '(display-line-numbers (quote relative))
+ '(evil-mode t)
  '(global-auto-revert-mode t)
+ '(global-evil-surround-mode t)
  '(global-hl-line-mode t)
  '(horizontal-scroll-bar-mode t)
  '(indent-tabs-mode nil)
@@ -99,7 +114,7 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (nyan-mode neotree magit evil dracula-theme counsel)))
+    (nyan-mode neotree magit lsp-ui lsp-ivy evil-surround dracula-theme counsel company)))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
