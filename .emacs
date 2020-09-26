@@ -117,6 +117,7 @@
  '(blink-cursor-mode nil)
  '(current-language-environment "UTF-8")
  '(display-line-numbers (quote relative))
+ '(electric-pair-mode t)
  '(global-auto-revert-mode t)
  '(global-hl-line-mode t)
  '(horizontal-scroll-bar-mode t)
@@ -124,6 +125,7 @@
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(mouse-wheel-progressive-speed nil)
+ '(password-cache-expiry nil)
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
@@ -137,3 +139,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 85 :width normal)))))
+
+(set-fontset-font t 'han (font-spec :family "Microsoft YaHei"))
