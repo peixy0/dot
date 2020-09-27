@@ -27,21 +27,24 @@
 (use-package evil-surround
   :config
   (global-evil-surround-mode t)
-  :after (evil))
+  :after evil)
 
 (use-package evil-collection
   :config
   (evil-collection-init)
-  :after (evil))
+  :after evil magit lsp-mode)
 
-(use-package neotree
-  :bind (([f7] . neotree-toggle))
+(use-package treemacs
+  :bind (([f7] . treemacs))
   :config
-  (setq neo-hide-cursor t)
-  (setq neo-theme 'ascii)
-  (setq neo-window-fixed-size nil)
-  (setq neo-window-position (quote right))
-  (setq neo-window-width 60))
+  (setq treemacs-position 'right)
+  (setq treemacs-width 60)
+  (setq treemacs-resize-icons 11)
+  (setq treemacs-no-png-images t)
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+(use-package treemacs-evil
+  :after treemacs evil)
 
 (use-package ivy
   :config
@@ -84,7 +87,7 @@
          ("C-c F" . counsel-org-file))
   :config
   (counsel-mode t)
-  :after (ivy))
+  :after ivy)
 
 (use-package magit
   :bind (("C-x M-g" . 'magit-dispatch)
@@ -93,9 +96,10 @@
 ; (use-package lsp-mode
 ;   :hook ((c++-mode . lsp-deferred)))
 
-(use-package nyan-mode
-  :config
-  (nyan-mode t))
+(when (display-graphic-p)
+  (use-package nyan-mode
+    :config
+    (nyan-mode t)))
 
 (use-package google-c-style
   :hook ((c-mode-common . google-set-c-style)
@@ -105,7 +109,16 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.ttcn3\\'" . ttcn-3-mode)))
 
+(use-package mark-highlight
+  :bind (("<f5>" . mark-highlight-toggle)
+         ("S-<f5>" . mark-highlight-reset-universe)))
+
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(global-set-key (kbd "<f12>")
+                (lambda ()
+                  (interactive)
+                  (message (buffer-file-name))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -113,10 +126,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
- '(before-save-hook (quote (delete-trailing-whitespace)))
+ '(before-save-hook '(delete-trailing-whitespace))
  '(blink-cursor-mode nil)
  '(current-language-environment "UTF-8")
- '(display-line-numbers (quote relative))
+ '(display-line-numbers 'relative)
  '(electric-pair-mode t)
  '(global-auto-revert-mode t)
  '(global-hl-line-mode t)
@@ -125,14 +138,18 @@
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(mouse-wheel-progressive-speed nil)
- '(password-cache-expiry nil)
+ '(org-adapt-indentation nil)
+ '(org-tags-column 0)
+ '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "WAITING" "|" "OBSOLETE" "DONE")))
+ '(package-selected-packages
+   '(treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(truncate-lines t)
- '(vc-handled-backends (quote (git))))
+ '(vc-handled-backends '(git)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,4 +157,4 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 85 :width normal)))))
 
-(set-fontset-font t 'han (font-spec :family "Microsoft YaHei"))
+(set-fontset-font t 'han (font-spec :family "Microsoft Yahei"))
