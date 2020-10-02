@@ -24,27 +24,33 @@
   :config
   (evil-mode t))
 
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode t)
-  :after evil)
-
 (use-package evil-collection
   :config
   (evil-collection-init)
   :after evil magit lsp-mode)
 
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode t)
+  :after evil)
+
+(use-package all-the-icons)
+
 (use-package treemacs
-  :bind (([f7] . treemacs))
+  :bind (("<f7>" . treemacs)
+         ("M-0" . treemacs-select-window))
   :config
   (setq treemacs-position 'right)
   (setq treemacs-width 60)
-  (setq treemacs-resize-icons 11)
-  (setq treemacs-no-png-images t)
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
 (use-package treemacs-evil
   :after treemacs evil)
+
+(use-package treemacs-all-the-icons
+  :config
+  (treemacs-load-theme "all-the-icons")
+  :after treemacs all-the-icons)
 
 (use-package ivy
   :config
@@ -65,7 +71,7 @@
          ("C-x b" . ivy-switch-buffer)
          ("C-c f" . counsel-git)
          ("C-c g" . counsel-ag)
-         ("C-c b" . counsel-bookmark)
+         ("C-c b" . counsel-bookmark))
   :config
   (counsel-mode t)
   :after ivy)
@@ -74,8 +80,10 @@
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
 
-; (use-package lsp-mode
-;   :hook ((c++-mode . lsp-deferred)))
+(use-package lsp-mode
+  :hook ((c++-mode . lsp-deferred))
+  :config
+  (setq lsp-clients-clangd-args '("--background-index=false")))
 
 (when (display-graphic-p)
   (use-package nyan-mode
@@ -117,13 +125,15 @@
  '(horizontal-scroll-bar-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(initial-scratch-message nil)
  '(make-backup-files nil)
  '(mouse-wheel-progressive-speed nil)
  '(org-adapt-indentation nil)
  '(org-tags-column 0)
- '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "WAITING" "|" "OBSOLETE" "DONE")))
+ '(org-todo-keywords
+   '((sequence "TODO" "IN PROGRESS" "WAITING" "|" "OBSOLETE" "DONE")))
  '(package-selected-packages
-   '(treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
+   '(treemacs-all-the-icons treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
