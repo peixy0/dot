@@ -11,10 +11,11 @@ import XMonad
 import Data.Monoid
 import System.Exit
 
-import qualified XMonad.StackSet as W
 import qualified Data.Map as M
+import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.Spacing
 
@@ -67,51 +68,54 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [ ((modm , xK_Return), spawn $ XMonad.terminal conf)
 
   -- launch dmenu
-  , ((modm, xK_p ), spawn "dmenu_run")
+  , ((modm, xK_p), spawn "dmenu_run")
 
   -- close focused window
-  , ((modm .|. shiftMask, xK_c ), kill)
+  , ((modm .|. shiftMask, xK_c), kill)
 
   -- Rotate through the available layout algorithms
-  , ((modm, xK_space ), sendMessage NextLayout)
+  , ((modm, xK_space), sendMessage NextLayout)
 
   -- Reset the layouts on the current workspace to default
-  , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+  , ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
 
   -- Move focus to the next window
-  , ((modm, xK_j ), windows W.focusDown)
+  , ((modm, xK_j), windows W.focusDown)
 
   -- Move focus to the previous window
-  , ((modm, xK_k ), windows W.focusUp)
+  , ((modm, xK_k), windows W.focusUp)
 
   -- Swap the focused window with the next window
-  , ((modm .|. shiftMask, xK_j ), windows W.swapDown)
+  , ((modm .|. shiftMask, xK_j), windows W.swapDown)
 
   -- Swap the focused window with the previous window
-  , ((modm .|. shiftMask, xK_k ), windows W.swapUp)
+  , ((modm .|. shiftMask, xK_k), windows W.swapUp)
+
+  -- Push window back into tiling
+  , ((modm, xK_t), withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area
-  , ((modm , xK_comma ), sendMessage (IncMasterN (-1)))
+  , ((modm , xK_comma), sendMessage (IncMasterN 1))
 
   -- Deincrement the number of windows in the master area
-  , ((modm , xK_period), sendMessage (IncMasterN 1))
+  , ((modm , xK_period), sendMessage (IncMasterN (-1)))
 
   -- Toggle the status bar gap
   -- Use this binding with avoidStruts from Hooks.ManageDocks.
   -- See also the statusBar function from Hooks.DynamicLog.
-  , ((modm , xK_b ), sendMessage ToggleStruts)
+  , ((modm , xK_b), sendMessage ToggleStruts)
 
   -- Quit xmonad
-  , ((modm .|. shiftMask, xK_q ), io (exitWith ExitSuccess))
+  , ((modm .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 
   -- Restart xmonad
-  , ((modm , xK_q ), spawn "xmonad --recompile; xmonad --restart")
+  , ((modm , xK_q), spawn "xmonad --recompile; xmonad --restart")
 
   -- System reboot
-  , ((modm .|. shiftMask, xK_o ), spawn "systemctl reboot")
+  , ((modm .|. shiftMask, xK_o), spawn "systemctl reboot")
 
   -- System shutdown
-  , ((modm .|. shiftMask, xK_p ), spawn "systemctl poweroff")]
+  , ((modm .|. shiftMask, xK_p), spawn "systemctl poweroff")]
   ++
 
   --
