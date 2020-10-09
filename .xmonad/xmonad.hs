@@ -67,8 +67,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   -- launch a terminal
   [ ((modm , xK_Return), spawn $ XMonad.terminal conf)
 
-  -- launch dmenu
-  , ((modm, xK_p), spawn "dmenu_run")
+  -- launch app menu
+  , ((modm, xK_p), spawn "rofi -combi-modi run,ssh -show combi")
 
   -- close focused window
   , ((modm .|. shiftMask, xK_c), kill)
