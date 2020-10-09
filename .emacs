@@ -17,12 +17,18 @@
   :config
   (load-theme 'dracula t))
 
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
+
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-tree)
   :config
-  (evil-mode t))
+  (evil-mode t)
+  :after undo-tree)
 
 (use-package evil-collection
   :config
@@ -133,7 +139,7 @@
  '(org-todo-keywords
    '((sequence "TODO" "IN PROGRESS" "WAITING" "|" "OBSOLETE" "DONE")))
  '(package-selected-packages
-   '(treemacs-all-the-icons treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
+   '(undo-tree treemacs-all-the-icons treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
