@@ -89,7 +89,15 @@
 (use-package lsp-mode
   :hook ((c++-mode . lsp-deferred))
   :config
-  (setq lsp-clients-clangd-args '("--background-index=false")))
+  (setq lsp-clients-clangd-args
+        '("--background-index=false"
+          "--clang-tidy=true"
+          "--pch-storage=memory")))
+
+(use-package lsp-treemacs
+  :config
+  (lsp-treemacs-sync-mode t)
+  :after lsp-mode treemacs)
 
 (when (display-graphic-p)
   (use-package nyan-mode
@@ -110,10 +118,15 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(global-set-key (kbd "<f12>")
-                (lambda ()
-                  (interactive)
-                  (message (buffer-file-name))))
+(defun show-buffer-file-name ()
+  (interactive)
+  (message (buffer-file-name)))
+
+(defun kill-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+(global-set-key (kbd "<f12>") 'show-buffer-file-name)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
