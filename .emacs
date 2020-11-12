@@ -118,15 +118,19 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defun show-buffer-file-name ()
+(defun locate-pos ()
   (interactive)
-  (message (buffer-file-name)))
+  (let* ((f (buffer-file-name))
+         (n (line-number-at-pos))
+         (result (format "%s:%d" f n)))
+    (message result)
+    (kill-new result)))
 
 (defun kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-(global-set-key (kbd "<f12>") 'show-buffer-file-name)
+(global-set-key (kbd "<f12>") 'locate-pos)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
