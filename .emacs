@@ -40,23 +40,17 @@
   (global-evil-surround-mode t)
   :after evil)
 
-(use-package all-the-icons)
-
 (use-package treemacs
   :bind (("<f7>" . treemacs)
          ("M-0" . treemacs-select-window))
   :config
   (setq treemacs-position 'right)
   (setq treemacs-width 60)
+  (setq treemacs-no-png-images t)
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
 (use-package treemacs-evil
   :after treemacs evil)
-
-(use-package treemacs-all-the-icons
-  :config
-  (treemacs-load-theme "all-the-icons")
-  :after treemacs all-the-icons)
 
 (use-package ivy
   :config
@@ -154,9 +148,7 @@
  '(org-adapt-indentation nil)
  '(org-tags-column 0)
  '(org-todo-keywords
-   '((sequence "TODO" "IN PROGRESS" "WAITING" "|" "OBSOLETE" "DONE")))
- '(package-selected-packages
-   '(undo-tree treemacs-all-the-icons treemacs-evil lsp-treemacs use-package nyan-mode magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
+   '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
