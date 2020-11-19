@@ -5,6 +5,7 @@ Xft.antialias: 1
 *.termName: xterm-256color
 *.vt100.faceName: Hack:size=11
 *.vt100.faceNameDoublesize: Noto Sans Mono CJK SC
+*.vt100.selectToClipboard: true
 
 ! Dracula Xresources palette
 *.vt100.foreground: #F8F8F2
