@@ -17,23 +17,21 @@
   :config
   (load-theme 'dracula t))
 
-(use-package undo-tree
-  :config
-  (global-undo-tree-mode))
+(use-package undo-fu)
 
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-undo-system 'undo-tree)
+  (setq evil-undo-system 'undo-fu)
   :config
   (evil-mode t)
-  :after undo-tree)
+  :after undo-fu)
 
 (use-package evil-collection
   :config
   (evil-collection-init)
-  :after evil magit evil-magit lsp-mode)
+  :after evil)
 
 (use-package evil-surround
   :config
@@ -85,9 +83,6 @@
 (use-package magit
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
-
-(use-package evil-magit
-  :after (evil magit))
 
 (use-package lsp-mode
   :hook ((c++-mode . lsp-deferred))
