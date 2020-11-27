@@ -33,7 +33,7 @@
 (use-package evil-collection
   :config
   (evil-collection-init)
-  :after evil magit lsp-mode)
+  :after evil magit evil-magit lsp-mode)
 
 (use-package evil-surround
   :config
@@ -55,11 +55,12 @@
 (use-package ivy
   :config
   (ivy-mode t)
+  (setq ivy-initial-inputs-alist nil)
   (setq ivy-use-virtual-buffers t))
 
 (use-package counsel
   :bind (("C-s" . swiper-isearch)
-         ("M-x" . counsel-M-x)
+         ("C-M-s" . swiper-all)
          ("C-x C-f" . counsel-find-file)
          ("M-y" . counsel-yank-pop)
          ("<f1> f" . counsel-describe-function)
@@ -75,6 +76,11 @@
   :config
   (counsel-mode t)
   :after ivy)
+
+(use-package amx
+  :config
+  (amx-mode)
+  :after ivy counsel)
 
 (use-package magit
   :bind (("C-x M-g" . 'magit-dispatch)
@@ -96,10 +102,10 @@
   (lsp-treemacs-sync-mode t)
   :after lsp-mode treemacs)
 
-(when (display-graphic-p)
-  (use-package nyan-mode
-    :config
-    (nyan-mode t)))
+;; (when (display-graphic-p)
+;;   (use-package nyan-mode
+;;     :config
+;;     (nyan-mode t)))
 
 (use-package google-c-style
   :hook ((c-mode-common . google-set-c-style)
@@ -115,7 +121,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defun locate-pos ()
+(defun where-am-i ()
   (interactive)
   (let* ((f (buffer-file-name))
          (n (line-number-at-pos))
@@ -127,7 +133,7 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-(global-set-key (kbd "<f12>") 'locate-pos)
+(global-set-key (kbd "<f12>") 'where-am-i)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -135,10 +141,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
- '(before-save-hook '(delete-trailing-whitespace))
+ '(before-save-hook (quote (delete-trailing-whitespace)))
  '(blink-cursor-mode nil)
  '(current-language-environment "UTF-8")
- '(display-line-numbers 'relative)
+ '(display-line-numbers (quote relative))
  '(electric-pair-mode t)
  '(global-auto-revert-mode t)
  '(global-hl-line-mode t)
@@ -151,14 +157,15 @@
  '(org-adapt-indentation nil)
  '(org-tags-column 0)
  '(org-todo-keywords
-   '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
+   (quote
+    ((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE"))))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(truncate-lines t)
- '(vc-handled-backends '(git)))
+ '(vc-handled-backends (quote (git))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
