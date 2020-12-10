@@ -138,6 +138,7 @@
  '(auto-save-default nil)
  '(before-save-hook (quote (delete-trailing-whitespace)))
  '(blink-cursor-mode nil)
+ '(column-number-mode t)
  '(current-language-environment "UTF-8")
  '(display-line-numbers (quote relative))
  '(electric-pair-mode t)
