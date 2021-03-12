@@ -1,3 +1,5 @@
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
@@ -129,8 +131,6 @@
   :bind (("<f5>" . mark-highlight-toggle)
          ("S-<f5>" . mark-highlight-reset-universe)))
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 (defun where-am-i ()
   (interactive)
   (let* ((f (buffer-file-name))
@@ -153,7 +153,7 @@
  '(auto-save-default nil)
  '(before-save-hook (quote (delete-trailing-whitespace)))
  '(blink-cursor-mode nil)
- '(column-number-mode t)
+ '(column-number-mode nil)
  '(create-lockfiles nil)
  '(current-language-environment "UTF-8")
  '(display-line-numbers (quote relative))
@@ -165,6 +165,7 @@
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
  '(make-backup-files nil)
+ '(mode-line-percent-position nil)
  '(mouse-wheel-progressive-speed nil)
  '(org-adapt-indentation nil)
  '(org-tags-column 0)
