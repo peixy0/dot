@@ -7,6 +7,15 @@
         ("https" . "10.144.1.10:8080")))
 (package-initialize)
 
+(defun ensure-package (package-list)
+  (mapcar (lambda (package)
+            (unless (package-installed-p package)
+              (package-install package)))
+          package-list))
+
+(ensure-package
+ '(yasnippet undo-fu amx evil-magit treemacs-evil lsp-treemacs use-package magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
+
 (eval-when-compile
   (add-to-list 'load-path "~/.emacs.d/elisp/cc-mode/")
   (add-to-list 'load-path "~/.emacs.d/elisp/ttcn-el/")
@@ -80,6 +89,11 @@
   (amx-mode)
   :after ivy counsel)
 
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet-snippets/snippets"))
+  (yas-global-mode t))
+
 (use-package magit
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
@@ -87,6 +101,7 @@
 (use-package lsp-mode
   :hook ((c++-mode . lsp-deferred))
   :config
+  (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-clients-clangd-args
         '("--background-index=false"
           "--clang-tidy=true"
