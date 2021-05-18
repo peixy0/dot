@@ -9,15 +9,6 @@
         ("https" . "10.144.1.10:8080")))
 (package-initialize)
 
-(defun ensure-package (package-list)
-  (mapcar (lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-          package-list))
-
-(ensure-package
- '(yasnippet undo-fu amx evil-magit treemacs-evil lsp-treemacs use-package magit lsp-ivy flycheck evil-surround evil-collection dracula-theme counsel company))
-
 (eval-when-compile
   (add-to-list 'load-path "~/.emacs.d/elisp/cc-mode/")
   (add-to-list 'load-path "~/.emacs.d/elisp/ttcn-el/")
@@ -25,12 +16,15 @@
   (require 'use-package))
 
 (use-package dracula-theme
+  :ensure t
   :config
   (load-theme 'dracula t))
 
-(use-package undo-fu)
+(use-package undo-fu
+  :ensure t)
 
 (use-package evil
+  :ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
@@ -40,16 +34,19 @@
   :after undo-fu)
 
 (use-package evil-collection
+  :ensure t
   :config
   (evil-collection-init)
   :after evil)
 
 (use-package evil-surround
+  :ensure t
   :config
   (global-evil-surround-mode t)
   :after evil)
 
 (use-package treemacs
+  :ensure t
   :bind (("<f7>" . treemacs)
          ("M-0" . treemacs-select-window))
   :config
@@ -59,15 +56,18 @@
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
 (use-package treemacs-evil
+  :ensure t
   :after treemacs evil)
 
 (use-package ivy
+  :ensure t
   :config
   (ivy-mode t)
   (setq ivy-initial-inputs-alist nil)
   (setq ivy-use-virtual-buffers t))
 
 (use-package counsel
+  :ensure t
   :bind (("C-s" . swiper-isearch)
          ("C-M-s" . swiper-all)
          ("C-x C-f" . counsel-find-file)
@@ -87,20 +87,24 @@
   :after ivy)
 
 (use-package amx
+  :ensure t
   :config
   (amx-mode)
   :after ivy counsel)
 
 (use-package yasnippet
+  :ensure t
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/yasnippet-snippets/snippets"))
   (yas-global-mode t))
 
 (use-package magit
+  :ensure t
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
 
 (use-package lsp-mode
+  :ensure t
   :hook ((c++-mode . lsp-deferred))
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
@@ -110,6 +114,7 @@
           "--pch-storage=memory")))
 
 (use-package lsp-treemacs
+  :ensure t
   :config
   (lsp-treemacs-sync-mode t)
   :after lsp-mode treemacs)
