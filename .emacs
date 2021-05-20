@@ -103,6 +103,9 @@
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
 
+(use-package flycheck
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :hook ((c++-mode . lsp-deferred))
