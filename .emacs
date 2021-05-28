@@ -80,6 +80,9 @@
          ("<f2> j" . counsel-set-variable)
          ("C-x b" . ivy-switch-buffer)
          ("C-c f" . counsel-git)
+         ("C-c a" . (lambda ()
+                      (interactive)
+                      (counsel-git (file-name-base))))
          ("C-c g" . counsel-ag)
          ("C-c b" . counsel-bookmark))
   :config
