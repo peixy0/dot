@@ -50,6 +50,8 @@
   :bind (("<f7>" . treemacs)
          ("M-0" . treemacs-select-window))
   :config
+  (setq treemacs-follow-mode nil)
+  (setq treemacs-git-mode nil)
   (setq treemacs-position 'right)
   (setq treemacs-width 60)
   (setq treemacs-no-png-images t)
@@ -78,12 +80,12 @@
          ("<f2> i" . counsel-info-lookup-symbol)
          ("<f2> u" . counsel-unicode-char)
          ("<f2> j" . counsel-set-variable)
-         ("C-x b" . ivy-switch-buffer)
+         ("C-x b" . counsel-ibuffer)
          ("C-c f" . counsel-git)
          ("C-c a" . (lambda ()
                       (interactive)
                       (counsel-git (file-name-base))))
-         ("C-c g" . counsel-ag)
+         ("C-c g" . counsel-rg)
          ("C-c b" . counsel-bookmark))
   :config
   (counsel-mode t)
@@ -111,6 +113,7 @@
 
 (use-package lsp-mode
   :ensure t
+  :bind (("C-c =" . 'lsp-format-buffer))
   :hook ((c++-mode . lsp-deferred))
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
@@ -125,10 +128,10 @@
   (lsp-treemacs-sync-mode t)
   :after lsp-mode treemacs)
 
-;; (when (display-graphic-p)
-;;   (use-package nyan-mode
-;;     :config
-;;     (nyan-mode t)))
+(use-package modern-cpp-font-lock
+  :ensure t
+  :config
+  (modern-c++-font-lock-global-mode t))
 
 (use-package google-c-style
   :hook ((c-mode-common . google-set-c-style)
@@ -150,11 +153,22 @@
     (message result)
     (kill-new result)))
 
+(global-set-key (kbd "<f12>") 'where-am-i)
+
+(defun find-cmake (&optional path)
+  (interactive)
+  (let ((target (expand-file-name "CMakeLists.txt" path)))
+    (if (file-exists-p target)
+        (find-file target)
+      (let* ((dir (file-name-directory (directory-file-name target)))
+             (parent (file-name-directory (directory-file-name dir))))
+        (if (not (equal parent path))
+            (find-cmake parent)
+          (message "Found nothing..."))))))
+
 (defun kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
-
-(global-set-key (kbd "<f12>") 'where-am-i)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -176,6 +190,7 @@
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
  '(make-backup-files nil)
+ '(menu-bar-mode nil)
  '(mode-line-percent-position nil)
  '(mouse-wheel-progressive-speed nil)
  '(org-adapt-indentation nil)
