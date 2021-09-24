@@ -20,6 +20,14 @@
   :config
   (load-theme 'dracula t))
 
+(use-package all-the-icons
+  :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 (use-package undo-fu
   :ensure t)
 
@@ -82,9 +90,6 @@
          ("<f2> j" . counsel-set-variable)
          ("C-x b" . counsel-ibuffer)
          ("C-c f" . counsel-git)
-         ("C-c a" . (lambda ()
-                      (interactive)
-                      (counsel-git (file-name-base))))
          ("C-c g" . counsel-rg)
          ("C-c b" . counsel-bookmark))
   :config
@@ -108,13 +113,17 @@
   :bind (("C-x M-g" . 'magit-dispatch)
          ("C-c M-g" . 'magit-file-dispatch)))
 
+(use-package go-mode
+  :ensure t)
+
 (use-package flycheck
   :ensure t)
 
 (use-package lsp-mode
   :ensure t
   :bind (("C-c =" . 'lsp-format-buffer))
-  :hook ((c++-mode . lsp-deferred))
+  :hook ((c++-mode . lsp-deferred)
+         (go-mode . lsp-deferred))
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-clients-clangd-args
@@ -154,6 +163,12 @@
     (kill-new result)))
 
 (global-set-key (kbd "<f12>") 'where-am-i)
+
+(defun find-file-name-base ()
+  (interactive)
+  (counsel-git (file-name-base)))
+
+(global-set-key (kbd "C-c a") 'find-file-name-base)
 
 (defun find-cmake (&optional path)
   (interactive)
