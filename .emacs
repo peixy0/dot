@@ -102,12 +102,6 @@
   (amx-mode)
   :after ivy counsel)
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (setq yas-snippet-dirs '("~/.emacs.d/yasnippet-snippets/snippets"))
-  (yas-global-mode t))
-
 (use-package magit
   :ensure t
   :bind (("C-x M-g" . 'magit-dispatch)
@@ -119,11 +113,13 @@
 (use-package flycheck
   :ensure t)
 
+(use-package company
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :bind (("C-c =" . 'lsp-format-buffer))
-  :hook ((c++-mode . lsp-deferred)
-         (go-mode . lsp-deferred))
+  :hook ((c++-mode . lsp-deferred))
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-clients-clangd-args
