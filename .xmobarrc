@@ -5,13 +5,13 @@ Config {
    , bgColor =      "black"
    , fgColor =      "#EEEEEE"
    , position =     Top
-   , border =       BottomB
-   , borderColor =  "#666666"
+   -- , border =       BottomB
+   -- , borderColor =  "black"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %StdinReader% }{ %multicpu% | %memory% | %battery% | %dynnetwork% | %date% "
+   , template = " %StdinReader% }{ %thermal0% | %multicpu% | %memory% | %dynnetwork% | %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -65,14 +65,11 @@ Config {
                              , "--high"     , "red"
                              ] 10
 
-        -- battery monitor
-        , Run Battery        [ "--template" , "BATTERY: <left>%"
-                             , "--Low"      , "30"        -- units: %
-                             , "--High"     , "80"        -- units: %
-                             , "--low"      , "red"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "green"
-                             ] 50
+        -- temp sensor
+        , Run ThermalZone 0 [ "-t", "T: <temp>°C"
+                            , "-L", "60", "-H", "80"
+                            , "-l", "green", "-n", "darkorange", "-h", "red"
+                            ] 50
 
         -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
