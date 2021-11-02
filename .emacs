@@ -28,6 +28,10 @@
   :config
   (which-key-mode))
 
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-c <mouse-1>" . 'mc/add-cursor-on-click)))
+
 (use-package undo-fu
   :ensure t)
 
