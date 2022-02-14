@@ -125,11 +125,18 @@
   :bind (("C-c =" . 'lsp-format-buffer))
   :hook ((c++-mode . lsp-deferred))
   :config
+  (setq read-process-output-max (* 1024 1024))
+  (setq lsp-restart 'auto-restart)
+  (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-modeline-diagnostics-enable nil)
   (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-enable-folding nil)
+  (setq lsp-enable-imenu nil)
+  (setq lsp-enable-snippet nil)
   (setq lsp-clients-clangd-args
-        '("--background-index=false"
-          "--clang-tidy=true"
-          "--pch-storage=memory")))
+        '("-j=4"
+          "--log=error"
+          "--clang-tidy")))
 
 (use-package lsp-treemacs
   :ensure t
