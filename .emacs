@@ -122,8 +122,10 @@
 
 (use-package lsp-mode
   :ensure t
-  :bind (("C-c =" . 'lsp-format-buffer))
-  :hook ((c++-mode . lsp-deferred))
+  :bind (("C-c =" . 'lsp-format-buffer)
+         ("C-c a" . 'lsp-clangd-find-other-file))
+  :hook ((c++-mode . lsp-deferred)
+         (ttcn-3-mode . lsp-deferred))
   :config
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-restart 'auto-restart)
@@ -170,12 +172,7 @@
     (kill-new result)))
 
 (global-set-key (kbd "<f12>") 'where-am-i)
-
-(defun find-file-name-base ()
-  (interactive)
-  (counsel-git (file-name-base)))
-
-(global-set-key (kbd "C-c a") 'find-file-name-base)
+(global-set-key (kbd "C-c m") 'compile)
 
 (defun find-cmake (&optional path)
   (interactive)
@@ -198,12 +195,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
- '(before-save-hook (quote (delete-trailing-whitespace)))
+ '(before-save-hook '(delete-trailing-whitespace))
  '(blink-cursor-mode nil)
  '(column-number-mode nil)
+ '(compile-command "cd $BUILD_DIR; ninja")
  '(create-lockfiles nil)
  '(current-language-environment "UTF-8")
- '(display-line-numbers (quote relative))
+ '(display-line-numbers 'relative)
  '(electric-pair-mode t)
  '(global-auto-revert-mode t)
  '(global-hl-line-mode t)
@@ -218,15 +216,14 @@
  '(org-adapt-indentation nil)
  '(org-tags-column 0)
  '(org-todo-keywords
-   (quote
-    ((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE"))))
+   '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
  '(show-paren-mode t)
  '(split-height-threshold 0)
  '(split-width-threshold nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(truncate-lines t)
- '(vc-handled-backends (quote (git))))
+ '(vc-handled-backends '(git)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
