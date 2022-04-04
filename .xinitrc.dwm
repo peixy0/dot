@@ -1,5 +1,4 @@
-VBoxClient-all
-xrdb -merge ~/.Xresources
-(conky | while read LINE; do xsetroot -name "$LINE"; done) &
-~/.fehbg
-exec ~/repo/dwm/dwm
+. ~/.xsessionrc
+
+exec ~/apps/dwm/dwm
+
