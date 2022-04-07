@@ -1,5 +1,5 @@
 xsetroot -cursor_name left_ptr&
 xrdb -merge ~/.Xresources
 xmodmap ~/.xmodmaprc
-(conky | while read LINE; do xsetroot -name "$LINE"; done) &
+~/apps/slstatus/slstatus
 ~/.fehbg
