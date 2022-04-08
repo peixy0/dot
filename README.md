@@ -2,6 +2,7 @@
 
 * DWM
 * SLSTATUS
+* TMUX
 * ROFI
 * EMACS
 * XTERM
