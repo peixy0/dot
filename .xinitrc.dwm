@@ -1,4 +1,0 @@
-. ~/.xsessionrc
-
-exec ~/apps/dwm/dwm
-

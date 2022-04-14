@@ -1,16 +1,66 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
 (setq url-proxy-services
       '(("no_proxy" . "^\\(localhost\\|10.*\\)")
         ("http" . "10.144.1.10:8080")
         ("https" . "10.144.1.10:8080")))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
+ '(before-save-hook '(delete-trailing-whitespace))
+ '(blink-cursor-mode nil)
+ '(column-number-mode nil)
+ '(compile-command "cd $BUILD_DIR; ninja")
+ '(create-lockfiles nil)
+ '(current-language-environment "UTF-8")
+ '(delete-selection-mode t)
+ '(display-line-numbers nil)
+ '(display-line-numbers-type 'relative)
+ '(electric-pair-mode t)
+ '(global-auto-revert-mode t)
+ '(global-hl-line-mode t)
+ '(horizontal-scroll-bar-mode nil)
+ '(indent-tabs-mode nil)
+ '(inhibit-startup-screen t)
+ '(initial-scratch-message nil)
+ '(make-backup-files nil)
+ '(menu-bar-mode nil)
+ '(mode-line-percent-position nil)
+ '(mouse-wheel-progressive-speed nil)
+ '(org-adapt-indentation nil)
+ '(org-tags-column 0)
+ '(org-todo-keywords
+   '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
+ '(split-height-threshold 0)
+ '(split-width-threshold nil)
+ '(tab-width 4)
+ '(tool-bar-mode nil)
+ '(truncate-lines t)
+ '(vc-handled-backends '(git)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 102 :width normal)))))
+
+(set-fontset-font t 'han (font-spec :family "Microsoft Yahei"))
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 (eval-when-compile
-  (add-to-list 'load-path "~/.emacs.d/elisp/cc-mode/")
   (add-to-list 'load-path "~/.emacs.d/elisp/ttcn-el/")
   (add-to-list 'load-path "~/.emacs.d/elisp/misc/")
   (require 'use-package))
@@ -20,6 +70,16 @@
   :config
   (load-theme 'dracula t))
 
+(use-package tree-sitter-langs
+  :ensure t)
+
+(use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  :after tree-sitter-langs)
+
 (use-package all-the-icons
   :ensure t)
 
@@ -27,10 +87,6 @@
   :ensure t
   :config
   (which-key-mode))
-
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-c <mouse-1>" . 'mc/add-cursor-on-click)))
 
 (use-package undo-fu
   :ensure t)
@@ -43,6 +99,9 @@
   (setq evil-undo-system 'undo-fu)
   :config
   (evil-mode t)
+  (evil-define-key* 'motion 'global
+    ";" #'evil-ex
+    ":" #'evil-repeat-find-char)
   :after undo-fu)
 
 (use-package evil-collection
@@ -56,22 +115,6 @@
   :config
   (global-evil-surround-mode t)
   :after evil)
-
-(use-package treemacs
-  :ensure t
-  :bind (("<f7>" . treemacs)
-         ("M-0" . treemacs-select-window))
-  :config
-  (setq treemacs-follow-mode nil)
-  (setq treemacs-git-mode nil)
-  (setq treemacs-position 'right)
-  (setq treemacs-width 60)
-  (setq treemacs-no-png-images t)
-  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
-
-(use-package treemacs-evil
-  :ensure t
-  :after treemacs evil)
 
 (use-package ivy
   :ensure t
@@ -131,6 +174,7 @@
 
 (use-package lsp-mode
   :ensure t
+  :defer t
   :bind (("C-c =" . 'lsp-format-buffer)
          ("C-c a" . 'lsp-clangd-find-other-file))
   :hook ((c++-mode . lsp-deferred)
@@ -146,8 +190,27 @@
   (setq lsp-enable-snippet nil)
   (setq lsp-clients-clangd-args
         '("-j=4"
+          "--background-index"
           "--log=error"
           "--clang-tidy")))
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :bind (("<f7>" . treemacs)
+         ("M-0" . treemacs-select-window))
+  :config
+  (setq treemacs-follow-mode nil)
+  (setq treemacs-git-mode nil)
+  (setq treemacs-position 'right)
+  (setq treemacs-width 60)
+  (setq treemacs-width-is-initially-locked nil)
+  (setq treemacs-no-png-images t)
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+(use-package treemacs-evil
+  :ensure t
+  :after treemacs evil)
 
 (use-package lsp-treemacs
   :ensure t
@@ -155,22 +218,13 @@
   (lsp-treemacs-sync-mode t)
   :after lsp-mode treemacs)
 
-(use-package modern-cpp-font-lock
-  :ensure t
-  :config
-  (modern-c++-font-lock-global-mode t))
-
-(use-package google-c-style
-  :hook ((c-mode-common . google-set-c-style)
-         (c-mode-common . google-make-newline-indent)))
+(use-package mark-highlight
+  :bind (("<f5>" . mark-highlight-toggle)
+         ("S-<f5>" . mark-highlight-reset-universe)))
 
 (use-package ttcn3
   :config
   (add-to-list 'auto-mode-alist '("\\.ttcn3\\'" . ttcn-3-mode)))
-
-(use-package mark-highlight
-  :bind (("<f5>" . mark-highlight-toggle)
-         ("S-<f5>" . mark-highlight-reset-universe)))
 
 (defun where-am-i ()
   (interactive)
@@ -197,47 +251,3 @@
 (defun kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-save-default nil)
- '(before-save-hook '(delete-trailing-whitespace))
- '(blink-cursor-mode nil)
- '(column-number-mode nil)
- '(compile-command "cd $BUILD_DIR; ninja")
- '(create-lockfiles nil)
- '(current-language-environment "UTF-8")
- '(display-line-numbers 'relative)
- '(electric-pair-mode t)
- '(global-auto-revert-mode t)
- '(global-hl-line-mode t)
- '(horizontal-scroll-bar-mode t)
- '(indent-tabs-mode nil)
- '(inhibit-startup-screen t)
- '(initial-scratch-message nil)
- '(make-backup-files nil)
- '(menu-bar-mode nil)
- '(mode-line-percent-position nil)
- '(mouse-wheel-progressive-speed nil)
- '(org-adapt-indentation nil)
- '(org-tags-column 0)
- '(org-todo-keywords
-   '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
- '(show-paren-mode t)
- '(split-height-threshold 0)
- '(split-width-threshold nil)
- '(tab-width 4)
- '(tool-bar-mode nil)
- '(truncate-lines t)
- '(vc-handled-backends '(git)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 85 :width normal)))))
-
-(set-fontset-font t 'han (font-spec :family "Microsoft Yahei"))

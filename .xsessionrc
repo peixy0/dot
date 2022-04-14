@@ -1,5 +1,16 @@
 xsetroot -cursor_name left_ptr&
-xrdb -merge ~/.Xresources
 xmodmap ~/.xmodmaprc
-~/apps/slstatus/slstatus
 ~/.fehbg
+
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export GLFW_IM_MODULE=ibus
+ibus-daemon -drx
+
+pasystray&
+nm-applet&
+
+export PATH=~/.bin:$PATH
+export EDITOR=emacs
+export TERMINAL=kitty

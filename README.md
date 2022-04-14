@@ -1,11 +1,8 @@
 # Current Setup
 
-* DWM
-* SLSTATUS
+* BSPWM
+* POLYBAR
 * TMUX
 * ROFI
 * EMACS
-* XTERM
-* ~~I3~~
-* ~~XMONAD~~
-* ~~CONKY~~
+* KITTY
