@@ -13,7 +13,6 @@
  '(auto-save-default nil)
  '(before-save-hook '(delete-trailing-whitespace))
  '(blink-cursor-mode nil)
- '(column-number-mode nil)
  '(compile-command "cd $BUILD_DIR; ninja")
  '(create-lockfiles nil)
  '(current-language-environment "UTF-8")
@@ -37,7 +36,7 @@
    '((sequence "TODO" "IN PROGRESS" "PENDING" "|" "OBSOLETE" "DONE")))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
- '(split-height-threshold 0)
+ '(split-height-threshold nil)
  '(split-width-threshold nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
@@ -49,7 +48,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hack" :foundry "SRC" :slant normal :weight normal :height 102 :width normal)))))
+ '(default ((t (:family "Hack" :slant normal :weight normal :height 103 :width normal)))))
 
 (set-fontset-font t 'han (font-spec :family "Microsoft Yahei"))
 
@@ -70,6 +69,10 @@
   :config
   (load-theme 'dracula t))
 
+(use-package diminish
+  :diminish abbrev-mode
+  :diminish eldoc-mode)
+
 (use-package tree-sitter-langs
   :ensure t)
 
@@ -78,6 +81,7 @@
   :config
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  :diminish tree-sitter-mode
   :after tree-sitter-langs)
 
 (use-package all-the-icons
@@ -86,7 +90,8 @@
 (use-package which-key
   :ensure t
   :config
-  (which-key-mode))
+  (which-key-mode)
+  :diminish which-key-mode)
 
 (use-package undo-fu
   :ensure t)
@@ -108,6 +113,7 @@
   :ensure t
   :config
   (evil-collection-init)
+  :diminish evil-collection-unimpaired-mode
   :after evil)
 
 (use-package evil-surround
@@ -121,7 +127,8 @@
   :config
   (ivy-mode t)
   (setq ivy-initial-inputs-alist nil)
-  (setq ivy-use-virtual-buffers t))
+  (setq ivy-use-virtual-buffers t)
+  :diminish ivy-mode)
 
 (use-package counsel
   :ensure t
@@ -141,6 +148,7 @@
          ("C-c b" . counsel-bookmark))
   :config
   (counsel-mode t)
+  :diminish counsel-mode
   :after ivy)
 
 (use-package amx
@@ -170,7 +178,8 @@
   :ensure t)
 
 (use-package company
-  :ensure t)
+  :ensure t
+  :diminish company-mode)
 
 (use-package lsp-mode
   :ensure t
