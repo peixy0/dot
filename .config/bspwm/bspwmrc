@@ -2,9 +2,12 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 killall polybar
-polybar &
+MONITOR=eDP-1 polybar default&
+MONITOR=HDMI-2 polybar external&
 
-bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+bspc wm --reorder-monitors eDP-1 HDMI-2
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9
+bspc monitor HDMI-2 -d EXTERNAL
 
 bspc config border_width          2
 bspc config window_gap            8
@@ -15,4 +18,3 @@ bspc config gapless_monocle       false
 bspc config focus_follows_pointer true
 
 bspc rule -a Zathura state=tiled
-bspc rule -a Nm-connection-editor state=floating

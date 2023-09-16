@@ -21,12 +21,12 @@ super + shift + o
 super + shift + p
     systemctl poweroff
 
-super + l
+super + slash
     slock
 
 # terminal emulator
 super + Return
-   kitty
+    kitty
 
 # program launcher
 super + d
