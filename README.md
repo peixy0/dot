@@ -5,4 +5,4 @@
 * TMUX
 * ROFI
 * EMACS
-* KITTY
+* XTERM
