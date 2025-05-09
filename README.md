@@ -1,8 +1,4 @@
 # Current Setup
 
-* BSPWM
-* POLYBAR
+* NVIM
 * TMUX
-* ROFI
-* EMACS
-* XTERM
